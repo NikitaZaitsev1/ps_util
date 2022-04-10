@@ -8,7 +8,7 @@ class Processes:
     def get(self):
         return psutil.process_iter()
 
-    def format(self):
+    def show(self):
         header = '{:^5}{:^30}{:^20}{:<50}'.format('PID', 'NAME', 'STATUS', 'USER')
         print('-' * 150)
         print(header)
@@ -18,6 +18,3 @@ class Processes:
                                                                 proc.as_dict()['name'],
                                                                 proc.as_dict()['status'],
                                                                 proc.as_dict()['username']))
-
-    def show(self):
-        self.format()
