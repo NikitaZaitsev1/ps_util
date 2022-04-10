@@ -6,7 +6,7 @@ class DiskUsage:
     def get(self):
         return psutil.disk_usage('/')
 
-    def show(self):
+    def format(self):
         total = round(int(self.get()[0]) / 1024 / 1024 / 1024, 2)
         used = round(int(self.get()[1]) / 1024 / 1024 / 1024, 2)
         free = round(int(self.get()[2]) / 1024 / 1024 / 1024, 2)
@@ -17,4 +17,7 @@ class DiskUsage:
                       'Percentage usage: {} %'. \
             format(total, used, free, percent)
         print('-' * 150)
-        print(format_info)
+        return format_info
+
+    def show(self):
+        print(self.format())
