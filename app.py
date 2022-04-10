@@ -1,7 +1,4 @@
 from get_info.cpu import CPU
-from get_info.cpu_count import CPUCount
-from get_info.cpu_freq import CPUFrequency
-from get_info.cpu_percent import CPUPercent
 from get_info.disk_usage import DiskUsage
 from get_info.processes import Processes
 from get_info.swap_memory import SwapMemory

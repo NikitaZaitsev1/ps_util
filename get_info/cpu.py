@@ -13,7 +13,7 @@ class CPU:
         cpu_list.append(cpu_percent)
         return cpu_list
 
-    def show(self):
+    def format(self):
         cpu_count = str(self.get()[0])
         cpu_freq = str(self.get()[1])
         cpu_percent = str(self.get()[2])
@@ -21,4 +21,7 @@ class CPU:
                       'The current CPU frequency: {} Ghz\n' \
                       'The current system-wide CPU utilization: {} %'. \
             format(cpu_count, cpu_freq, cpu_percent)
-        print(format_info)
+        return format_info
+
+    def show(self):
+        print(self.format())
