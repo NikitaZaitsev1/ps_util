@@ -2,22 +2,21 @@ import psutil
 
 
 class VirtualMemory:
+    info = {}
+    template = 'Total Virtual Memory:{total}\n'
 
     def get(self):
-        return psutil.virtual_memory()
+        self.info.update(total=psutil.virtual_memory().total)
+        self.info.update(used=psutil.virtual_memory().used)
+        self.info.update(free=psutil.virtual_memory().free)
 
-    def prepare_info(self):
-        prepared_data = []
-        total_memory = round(int(self.get().total) / 1024 / 1024 / 1024, 0)
-        used_memory = round(int(self.get().used) / 1024 / 1024 / 1024, 2)
-        prepared_data.append(total_memory)
-        prepared_data.append(used_memory)
+    def _prepare(self):
+        self.template += 'Used Virtual Memory:'
+        self.template += '{used}\n'
 
-        return prepared_data
+        self.template += 'Free Virtual Memory:'
+        self.template += '{free}\n'
 
     def show(self):
-        format_info = 'Total virtual memory: {} GB\nUsed virtual memory: {} GB'. \
-            format(self.prepare_info()[0], self.prepare_info()[1])
-
-        print('-' * 150)
-        print(format_info)
+        self._prepare()
+        print(self.template.format(**self.info))

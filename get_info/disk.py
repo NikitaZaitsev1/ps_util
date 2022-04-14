@@ -3,7 +3,7 @@ import psutil
 
 class Disk:
     info = {}
-    template = '{total}\n'
+    template = 'Total Disk:{total}\n'
 
     def get(self):
         self.info.update(total=psutil.disk_usage('/').total)
@@ -15,9 +15,6 @@ class Disk:
         self.info.update(mountpoint=[m.mountpoint for m in psutil.disk_partitions()])
 
     def _prepare(self):
-        self.template += 'Total Disk:'
-        self.template += '{total}\n'
-
         self.template += 'Used Disk:'
         self.template += '{used}\n'
 

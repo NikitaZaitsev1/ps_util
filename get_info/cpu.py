@@ -2,33 +2,23 @@ import psutil
 
 
 class CPU:
+    info = {}
+    template = 'CPU count:{count}\n'
 
     def get(self):
-        cpu_list = []
-        cpu_count = psutil.cpu_count()
-        cpu_freq = psutil.cpu_freq(percpu=True)[0][0]
-        cpu_percent = psutil.cpu_percent(interval=1)
-        cpu_list.append(cpu_count)
-        cpu_list.append(cpu_freq)
-        cpu_list.append(cpu_percent)
+        self.info.update(count=psutil.cpu_count())
+        self.info.update(freq=[freq.current for freq in psutil.cpu_freq(percpu=True)])
+        self.info.update(percent=psutil.cpu_percent(interval=1, percpu=True))
 
-        return cpu_list
+    def _prepare_info(self):
+        self.template += 'CPU frequency:\n'
+        for index in range(len(self.info['freq'])):
+            self.template += '{freq[' + str(index) + ']}\n'
 
-    def prepare_info(self):
-        prepared_data = []
-        cpu_count = str(self.get()[0])
-        cpu_freq = str(self.get()[1])
-        cpu_percent = str(self.get()[2])
-        prepared_data.append(cpu_count)
-        prepared_data.append(cpu_freq)
-        prepared_data.append(cpu_percent)
-
-        return prepared_data
+        self.template += 'CPU Percent:\n'
+        for index in range(len(self.info['percent'])):
+            self.template += '{percent[' + str(index) + ']}\n'
 
     def show(self):
-        format_info = 'Number of logical CPUs: {}\n' \
-                      'The current CPU frequency: {} Ghz\n' \
-                      'The current system-wide CPU utilization: {} %'. \
-            format(self.prepare_info()[0], self.prepare_info()[1], self.prepare_info()[2])
-
-        print(format_info)
+        self._prepare_info()
+        print(self.template.format(**self.info))
