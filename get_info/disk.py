@@ -1,8 +1,9 @@
 import psutil
 
+from get_info.information import Information
 
-class Disk:
-    info = {}
+
+class Disk(Information):
     template = 'Total Disk:{total}\n'
 
     def get(self):
@@ -33,7 +34,3 @@ class Disk:
 
         for index in range(len(self.info['mountpoint'])):
             self.template += '{mountpoint[' + str(index) + ']}\n'
-
-    def show(self):
-        self._prepare()
-        print(self.template.format(**self.info))

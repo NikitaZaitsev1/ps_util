@@ -1,8 +1,9 @@
 import psutil
 
+from get_info.information import Information
 
-class SwapMemory:
-    info = {}
+
+class SwapMemory(Information):
     template = 'Total Swap Memory:{total}\n'
 
     def get(self):
@@ -20,7 +21,3 @@ class SwapMemory:
 
         self.template += 'Percent of Swap Memory::'
         self.template += '{percent}\n'
-
-    def show(self):
-        self._prepare()
-        print(self.template.format(**self.info))

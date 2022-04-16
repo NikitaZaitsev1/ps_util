@@ -1,8 +1,9 @@
 import psutil
 
+from get_info.information import Information
 
-class VirtualMemory:
-    info = {}
+
+class VirtualMemory(Information):
     template = 'Total Virtual Memory:{total}\n'
 
     def get(self):
@@ -16,7 +17,3 @@ class VirtualMemory:
 
         self.template += 'Free Virtual Memory:'
         self.template += '{free}\n'
-
-    def show(self):
-        self._prepare()
-        print(self.template.format(**self.info))
