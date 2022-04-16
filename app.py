@@ -1,6 +1,5 @@
 from get_info.cpu import CPU
 from get_info.disk import Disk
-from get_info.processes import Processes
 from get_info.swap_memory import SwapMemory
 from get_info.virtual_memory import VirtualMemory
 
@@ -21,10 +20,6 @@ def main():
     disk = Disk()
     disk.get()
     disk.show()
-
-    processes = Processes()
-    processes.get()
-    processes.show()
 
 
 if __name__ == '__main__':
